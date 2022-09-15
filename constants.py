@@ -55,7 +55,7 @@ all_farms_dict = {
     "eggpoint": eggpoint_farm, 
     "endoworld": endo_farm, 
     "marvinfavis": marvin_farm, 
-    "eggmoon(IDO)": eggmoon_farm, 
+    "eggmoon": eggmoon_farm, 
     "duckstreet": street_farm, 
     "kolkhoz": kolkhoz_farm,
     "forklog": forklog_farm, 

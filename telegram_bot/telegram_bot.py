@@ -20,6 +20,7 @@ class MyBot:
     def __init__(self, token, farms, default_deposit=15):
         self.bot = telegram.Bot(token=token)
         self.farms = farms
+        self.calls = 0
         self.user_manager = UserManager(default_deposit=default_deposit)
         self.updater = Updater(token=token, use_context=True)
         self.dispatcher = self.updater.dispatcher
@@ -113,6 +114,10 @@ class MyBot:
         return True
         return self.user_manager.user_exists(user_id=user_id)
 
+    def check_id_fake(self, user_id):
+        return self.user_manager.user_exists(user_id=user_id)
+    
+
     def send_to_all(self, msg):
         for el in self.user_manager.users:
             self.bot.send_message(chat_id=el, text=msg)
@@ -134,8 +139,9 @@ class MyBot:
     ###########   SPECIAL METHODS   ###############
 
     def allfarms(self, update, context):
-        name = update.message.chat.username
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = ""
         for f in self.farms.values():
             msg += str(f) + "\n"
@@ -144,81 +150,113 @@ class MyBot:
 
     def turtle(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["turtle"])
         self.send_by_id(id=user_id, msg=msg)
     
     def duxplorer(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["duxplorer"])
         self.send_by_id(id=user_id, msg=msg)
 
     def math(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["mathematical"])
         self.send_by_id(id=user_id, msg=msg)
 
     def eggseggs(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["eggseggs"])
         self.send_by_id(id=user_id, msg=msg)
 
     def latam(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["latam"])
         self.send_by_id(id=user_id, msg=msg)
 
     def fomo(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["fomo"])
         self.send_by_id(id=user_id, msg=msg)
 
     def mundo(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["mundo"])
         self.send_by_id(id=user_id, msg=msg)
 
     def eggpoint(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["eggpoint"])
         self.send_by_id(id=user_id, msg=msg)
 
     def endoworld(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["endoworld"])
         self.send_by_id(id=user_id, msg=msg)
 
     def marvinfavis(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["marvinfavis"])
         self.send_by_id(id=user_id, msg=msg)
 
     def eggmoon(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["eggmoon"])
         self.send_by_id(id=user_id, msg=msg)
 
     def duckstreet(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["duckstreet"])
         self.send_by_id(id=user_id, msg=msg)
 
     def kolkhoz(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["kolkhoz"])
         self.send_by_id(id=user_id, msg=msg)
 
     def forklog(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["forklog"])
         self.send_by_id(id=user_id, msg=msg)
 
     def cgu(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["cgu"])
         self.send_by_id(id=user_id, msg=msg)
 
     def insiders(self, update, context):
         user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         msg = str(self.farms["insiders"])
         self.send_by_id(id=user_id, msg=msg)
 
@@ -248,7 +286,7 @@ class MyBot:
         # print(update)
         name = update.message.chat.username
         user_id = update.message.chat.id
-        if not self.check_id(user_id):
+        if not self.check_id_fake(user_id):
             user = self.user_manager.create_user(user_id, name)
             # loglog(msg=f"User {id} {name} joined")
             self.send_to_me(msg=f"User {user.id} {user.name} joined")
@@ -256,13 +294,26 @@ class MyBot:
             self.send_by_id(id=user_id, msg=msg)
         else:
         # msg = f"Welcome! Your have {user.deposit} attempts. Enter /help to see available options"
+            # self.send_to_me(msg=f"User {user.id} {user.name} joined")
             msg = self.get_welcome_msg()
             self.send_by_id(id=user_id, msg=msg)
+
+    def add_new_user(self, user_id, name):
+        self.calls += 1
+        if not self.check_id_fake(user_id):
+            user = self.user_manager.create_user(user_id, name)
+            # loglog(msg=f"User {id} {name} joined")
+            self.send_to_me(msg=f"User {user.id} {user.name} joined, calls: {self.calls}")
+        else:
+            self.send_to_me(msg=f"User {user.id} {user.name}, calls: {self.calls}")
 
     def txt_handler(self, update, context):
         """Handle direct user input, whithout commands"""
         user_id = update.message.chat.id
+        name = update.message.chat.username
         text = update.message.text
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
         # self.user_manager.decrement_deposit(user_id=user_id)
         # self.send_by_id(id=id, msg="Sorry, paused for fixing, for approximately 2h, all deposits will be restored :)")
         # msg = self.parse_text(text)
