@@ -300,8 +300,8 @@ class MyBot:
 
     def add_new_user(self, user_id, name):
         self.calls += 1
+        user = self.user_manager.create_user(user_id, name)
         if not self.check_id_fake(user_id):
-            user = self.user_manager.create_user(user_id, name)
             # loglog(msg=f"User {id} {name} joined")
             self.send_to_me(msg=f"User {user.id} {user.name} joined, calls: {self.calls}")
         else:
