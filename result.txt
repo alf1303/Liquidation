@@ -1,0 +1,111 @@
+*    Turtle Farm*
+Total tokens: 1666.0115
+Staked tokens: 1432.0699
+Not Liquidate: 99.71%
+Liquidate: 0.29%
+Quorum: 55.65%
+
+*    Duxplorer Farm*
+Total tokens: 1755.1132
+Staked tokens: 1557.8879
+Not Liquidate: 100.0%
+Liquidate: 0.0%
+Quorum: 23.23%
+
+*    Mathematical Farm*
+Total tokens: 691.5219
+Staked tokens: 372.9353
+Not Liquidate: 69.65%
+Liquidate: 30.35%
+Quorum: 6.07%
+
+*    EggsEggs Farm*
+Total tokens: 311.9664
+Staked tokens: 164.931
+Not Liquidate: 96.51%
+Liquidate: 3.49%
+Quorum: 30.25%
+
+*    GranjaLatina Farm*
+Total tokens: 573.0577
+Staked tokens: 381.4147
+Not Liquidate: 78.63%
+Liquidate: 21.37%
+Quorum: 7.91%
+
+*    Fomo Farm*
+Total tokens: 1482.0034
+Staked tokens: 1136.1416
+Not Liquidate: 100.0%
+Liquidate: 0.0%
+Quorum: 35.22%
+
+*    Mundocrypto Farm*
+Total tokens: 2992.9648
+Staked tokens: 2439.6224
+Not Liquidate: 97.53%
+Liquidate: 2.47%
+Quorum: 10.51%
+
+*    Eggpoint Farm*
+Total tokens: 276.596
+Staked tokens: 179.6268
+Not Liquidate: 100.0%
+Liquidate: 0.0%
+Quorum: 25.22%
+
+*    EndoWorld Farm*
+Total tokens: 194.5951
+Staked tokens: 89.421
+Not Liquidate: 100.0%
+Liquidate: 0.0%
+Quorum: 1.45%
+
+*    Marvin Favis Farm*
+Total tokens: 404.4014
+Staked tokens: 215.7142
+Not Liquidate: 100.0%
+Liquidate: 0.0%
+Quorum: 11.4%
+
+*    IDO Research Farm*
+Total tokens: 269.8619
+Staked tokens: 138.8484
+Not Liquidate: 84.03%
+Liquidate: 15.97%
+Quorum: 3.47%
+
+*    DuckStreet Farm*
+Total tokens: 329.7868
+Staked tokens: 225.1691
+Not Liquidate: 96.63%
+Liquidate: 3.37%
+Quorum: 10.1%
+
+*    Kolkhoz Farm*
+Total tokens: 415.8879
+Staked tokens: 263.3677
+Not Liquidate: 99.5%
+Liquidate: 0.5%
+Quorum: 22.21%
+
+*    Forklog Farm*
+Total tokens: 115.8168
+Staked tokens: 49.1886
+Not Liquidate: 91.9%
+Liquidate: 8.1%
+Quorum: 2.87%
+
+*    CGU Farm*
+Total tokens: 192.1782
+Staked tokens: 106.4969
+Not Liquidate: 93.74%
+Liquidate: 6.26%
+Quorum: 1.47%
+
+*    Insiders Farm*
+Total tokens: 154.9387
+Staked tokens: 105.6164
+NO VOTES YET
+Quorum: 0.0%
+
