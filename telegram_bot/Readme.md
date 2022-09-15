@@ -8,5 +8,5 @@ Usage:
 - Import:
     from telegram_bot.telegram_bot import MyBot
 - Init:
-    telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs"
+    telegram_bot_token = "6666666666:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs"
     bot = MyBot(token=telegram_bot_token, default_deposit=15)
