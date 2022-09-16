@@ -107,6 +107,9 @@ class MyBot:
         address_to_handler = CommandHandler('address', self.address)
         self.dispatcher.add_handler(address_to_handler)
 
+        top_handler = CommandHandler('top', self.top)
+        self.dispatcher.add_handler(top_handler)
+
         text_handler = MessageHandler(filters=Filters.text, callback=self.txt_handler)
         self.dispatcher.add_handler(text_handler)
 
@@ -274,6 +277,20 @@ class MyBot:
                     if el["value"] == "false":
                         res += f"-- *{farm.name} Liquidate: NO*\n"
         return res
+
+    def top(self, update, context):
+        user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
+        if len(context.args) == 1:
+            res = context.args[0]
+            if res in self.farms:
+                msg = self.farms[res].str_top10()
+            else:
+                msg = "Your are so awesome :-) But farm name is incorrect"
+        else:
+            msg = "Your are so awesome:) How to use: \n /top FARM_NAME"
+        self.send_by_id(id=user_id, msg=msg)
 
                 
         
