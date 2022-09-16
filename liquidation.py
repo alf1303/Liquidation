@@ -11,8 +11,8 @@ from telegram_bot.telegram_bot import MyBot
 logging.basicConfig(filename=f'liqui.log', encoding='utf-8', format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, force=True)
 
 # # # https://t.me/TestDuckHuntAssistBot
-# telegram_bot_token = "5780926315:AAFaOTxlqDB_zKAIF7rsdeeFas4EHjx2zCs"
-telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs" # test
+telegram_bot_token = "5780926315:AAFaOTxlqDB_zKAIF7rsdeeFas4EHjx2zCs"
+# telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs" # test
 bot = MyBot(token=telegram_bot_token, default_deposit=15, farms=all_farms_dict)
 bot.send_to_me(msg="BOT STARTED!!!!")
 
