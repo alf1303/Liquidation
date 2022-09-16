@@ -16,7 +16,7 @@ telegram_bot_token = "5780926315:AAFaOTxlqDB_zKAIF7rsdeeFas4EHjx2zCs"
 bot = MyBot(token=telegram_bot_token, default_deposit=15, farms=all_farms_dict)
 bot.send_to_me(msg="BOT STARTED!!!!")
 
-PERIOD = 120 # seconds
+PERIOD = 150 # seconds
 
 last = datetime.now().timestamp()
 

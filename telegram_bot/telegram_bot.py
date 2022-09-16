@@ -294,7 +294,10 @@ class MyBot:
             # loglog(msg=f"User {id} {name} joined")
             msg = self.get_welcome_msg()
             self.send_by_id(id=user_id, msg=msg)
-            name = user.name.replace("_", "\_")
+            if name != None:
+                name = user.name.replace("_", "\_")
+            else:
+                name = "None"
             self.send_to_me(msg=f"User {user.id} {name} joined")
 
         else:
@@ -306,7 +309,10 @@ class MyBot:
     def add_new_user(self, user_id, name):
         self.calls += 1
         user = self.user_manager.create_user(user_id, name)
-        name = name.replace("_", "\_")
+        if name != None:
+            name = name.replace("_", "\_")
+        else:
+            name = "None"
         if not self.check_id_fake(user_id):
             # loglog(msg=f"User {id} {name} joined")
             self.send_to_me(msg=f"User {user.id} {name} joined, calls: {self.calls}")
