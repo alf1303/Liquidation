@@ -290,7 +290,7 @@ class MyBot:
             else:
                 msg = "Your are so awesome :-) But farm name is incorrect"
         else:
-            msg = "Your are so awesome:) How to use: \n /top FARM_NAME"
+            msg = "Your are so awesome:) How to use: /top FARM_NAME"
         self.send_by_id(id=user_id, msg=msg)
 
                 
