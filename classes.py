@@ -11,15 +11,26 @@ class Farm():
         self.voted = 0
         self.voted_true = 0
         self.voted_false = 0
+        self.quorum = 0
 
         self.data = []
+
+    def calc_quorum(self):
+        self.quorum = round(self.voted*100/self.all_tokens, 2)
     
     def get(self, value):
         v = value/10**self.decimals
         return round(v, 4)
 
     def __str__(self):
-        res = f"*    {self.name:} Farm*\n"
+        quorum = round(self.voted*100/self.all_tokens, 2)
+        if quorum > 35 and self.voted_false > self.voted_true:
+            status = "😁"
+        if quorum < 35 and quorum > 20:
+            status = "😐"
+        if quorum <= 20 or self.voted_false < self.voted_true:
+            status = "🤢"
+        res = f"*    {self.name:} Farm* {status}\n"
         res += f"Total tokens: {self.get(self.all_tokens)}\n"
         res += f"Staked tokens: {self.get(self.staked_amount)}\n"
         # try:
@@ -34,5 +45,5 @@ class Farm():
             res += f"Liquidate: {round(self.voted_true*100/self.voted, 2)}%\n"
         except ZeroDivisionError as e:
             res += "NO VOTES YET\n"
-        res += f"Quorum: {round(self.voted*100/self.all_tokens, 2)}%, ({self.get(self.voted)})"
+        res += f"*Quorum: {quorum}%*, ({self.get(self.voted)})"
         return res

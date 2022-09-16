@@ -143,9 +143,9 @@ class MyBot:
         name = update.message.chat.username
         self.add_new_user(user_id, name)
         msg = ""
-        for f in self.farms.values():
+        for f in sorted(self.farms.values(), key= lambda x: x.quorum, reverse=True):
             msg += str(f) + "\n"
-            msg += "-------------\n"
+            msg += "-------------------------\n"
         self.send_by_id(id=user_id, msg=msg)
 
     def turtle(self, update, context):
@@ -261,7 +261,7 @@ class MyBot:
         self.send_by_id(id=user_id, msg=msg)
 
     def check_address(self, address):
-        res = "*Your votes:*\n"
+        res = "*Votes:*\n"
         key = f"VOTE_{address}_"
         for farm in self.farms.values():
             for el in farm.data:
@@ -328,12 +328,12 @@ class MyBot:
         Parse text, entered by user, check for correctness and call another methods
         accordingly to user input"""
 
-        result = "Your are so awesome :-), paste Waves address to see your votes"
+        result = "Your are so awesome :-), paste Waves address to check your votes"
         matches = re.search(r"^[a-zA-Z0-9]+$", text)
         if matches:
             if len(text) == 35:
                 votes = self.check_address(text)
-                return votes
+                return f"*{text}:*\n{votes}"
         return result
     
     def depo(self, update, context):

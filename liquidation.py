@@ -12,7 +12,7 @@ logging.basicConfig(filename=f'liqui.log', encoding='utf-8', format='%(asctime)s
 
 # # # https://t.me/TestDuckHuntAssistBot
 telegram_bot_token = "5780926315:AAFaOTxlqDB_zKAIF7rsdeeFas4EHjx2zCs"
-# telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs" test
+# telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs" # test
 bot = MyBot(token=telegram_bot_token, default_deposit=15, farms=all_farms_dict)
 bot.send_to_me(msg="BOT STARTED!!!!")
 
@@ -24,14 +24,14 @@ def loglog(msg):
     logging.info(msg=msg)
 
 
-def main():
-    global last
-    while True:
-        now = datetime.now().timestamp()
-        if now - last > PERIOD:
-            last = now
-            loglog("processing...")
-            process_farms()
+# def main():
+#     global last
+#     while True:
+#         now = datetime.now().timestamp()
+#         if now - last > PERIOD:
+#             last = now
+#             loglog("processing...")
+#             process_farms()
 
 def main():
     global last
@@ -52,6 +52,7 @@ def process_farms():
     for f in all_farms:
         fill_global(f)
         fill_stake_vote(f)
+        f.calc_quorum()
     bot.send_to_me("Parsing successful")
 
 
