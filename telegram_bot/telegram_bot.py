@@ -289,9 +289,11 @@ class MyBot:
         if not self.check_id_fake(user_id):
             user = self.user_manager.create_user(user_id, name)
             # loglog(msg=f"User {id} {name} joined")
-            self.send_to_me(msg=f"User {user.id} {user.name} joined")
             msg = self.get_welcome_msg()
             self.send_by_id(id=user_id, msg=msg)
+            name = user.name.replace("_", "\_")
+            self.send_to_me(msg=f"User {user.id} {name} joined")
+
         else:
         # msg = f"Welcome! Your have {user.deposit} attempts. Enter /help to see available options"
             # self.send_to_me(msg=f"User {user.id} {user.name} joined")
@@ -301,11 +303,12 @@ class MyBot:
     def add_new_user(self, user_id, name):
         self.calls += 1
         user = self.user_manager.create_user(user_id, name)
+        name = name.replace("_", "\_")
         if not self.check_id_fake(user_id):
             # loglog(msg=f"User {id} {name} joined")
-            self.send_to_me(msg=f"User {user.id} {user.name} joined, calls: {self.calls}")
+            self.send_to_me(msg=f"User {user.id} {name} joined, calls: {self.calls}")
         else:
-            self.send_to_me(msg=f"User {user.id} {user.name}, calls: {self.calls}")
+            self.send_to_me(msg=f"User {user.id} {name}, calls: {self.calls}")
 
     def txt_handler(self, update, context):
         """Handle direct user input, whithout commands"""
