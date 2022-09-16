@@ -285,7 +285,8 @@ class MyBot:
         if len(context.args) == 1:
             res = context.args[0]
             if res in self.farms:
-                msg = self.farms[res].str_top10()
+                msg = f"{self.farms[res].name}:\n"
+                msg += self.farms[res].str_top10()
             else:
                 msg = "Your are so awesome :-) But farm name is incorrect"
         else:
