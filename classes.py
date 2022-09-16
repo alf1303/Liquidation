@@ -14,6 +14,12 @@ class Farm():
         self.quorum = 0
 
         self.data = []
+        self.top10 = []
+
+    # def calc_top10(self):
+    #     key = "_farm_staked"
+    #     for el in self.data:
+    #         if key in el[]
 
     def calc_quorum(self):
         self.quorum = round(self.voted*100/self.all_tokens, 2)
@@ -47,3 +53,10 @@ class Farm():
             res += "NO VOTES YET\n"
         res += f"*Quorum: {quorum}%*, ({self.get(self.voted)})"
         return res
+
+class Investor():
+    def __init__(self, address, staked, share, vote):
+        self.address = address
+        self.staked = staked
+        self.share = share
+        self.vote = vote

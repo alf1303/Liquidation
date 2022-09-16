@@ -104,6 +104,9 @@ class MyBot:
         send_to_handler = CommandHandler('sendto', self.sendto)
         self.dispatcher.add_handler(send_to_handler)
 
+        address_to_handler = CommandHandler('address', self.address)
+        self.dispatcher.add_handler(address_to_handler)
+
         text_handler = MessageHandler(filters=Filters.text, callback=self.txt_handler)
         self.dispatcher.add_handler(text_handler)
 
@@ -323,21 +326,37 @@ class MyBot:
         # msg = msg.replace("*", "\*")
         # msg = msg.replace("_", "\_")
 
-        msg = self.parse_text(text)
-        self.send_by_id(id=user_id, msg=msg)
+        parse = self.parse_text(text)
+        if parse != "None":
+            self.send_by_id(id=user_id, msg=parse)
 
     def parse_text(self, text):
         """ Mentioned as main processing method
         Parse text, entered by user, check for correctness and call another methods
         accordingly to user input"""
 
-        result = "Your are so awesome :-), paste Waves address to check your votes"
+        # result = "Your are so awesome :-), paste Waves address to check your votes"
+        result = "None"
         matches = re.search(r"^[a-zA-Z0-9]+$", text)
         if matches:
             if len(text) == 35:
                 votes = self.check_address(text)
                 return f"*{text}:*\n{votes}"
         return result
+
+    def address(self, update, context):
+        user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
+        if len(context.args) == 1:
+            res = self.parse_text(context.args[0])
+            if res != "None":
+                msg = res
+            else:
+                msg = "Your are so awesome :-) But address is incorrect"
+        else:
+            msg = "Your are so awesome:) How to use: \n /address 3P8968LuSXboHgKi94PHvc6c17duA6i8Hw8"
+        self.send_by_id(id=user_id, msg=msg)
     
     def depo(self, update, context):
         """Prints deposit amount for user, called this command"""
