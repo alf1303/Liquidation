@@ -39,7 +39,7 @@ class Farm():
                         inv.vote = "✔️"
                     break
                 else:
-                    inv.vote = ""
+                    inv.vote = "----"
         self.investors.sort(key=lambda x: x.share, reverse=True)
         
 
