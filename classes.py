@@ -54,7 +54,7 @@ class Farm():
         days = blocks//1440
         hours = (blocks - days*1440)//60
         minutes = (blocks - days*1440 - hours*60)
-        res = f"{days}d:{hours}h:{minutes}m ({blocks} blocks))"
+        res = f"{days}d:{hours}h:{minutes}m ({blocks} blocks)"
         return res
 
     def get_left_time(self) -> str:
@@ -96,14 +96,14 @@ class Farm():
             res += f"Liquidate: *{round(self.voted_true*100/self.voted, 2)}%* ({self.get(self.voted_true, 2)})\n"
         except ZeroDivisionError as e:
             res += "NO VOTES YET\n"
-        res += f"*Quorum: {quorum}%*{self.need_to_quorum()})"
+        res += f"*Quorum: {quorum}%*{self.need_to_quorum()}"
         return res
 
     def need_to_quorum(self) -> str:
         if self.quorum < 35:
             return f", (need {self.get(self.left_to_quorum, 2)})"
         else:
-            return f", (over: {self.get(-1*self.left_to_quorum, 2)})"
+            return f", (safe reserve: {self.get(-1*self.left_to_quorum, 2)})"
 
     def str_top10(self):
         res = ""
