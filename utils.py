@@ -3,9 +3,28 @@ import requests
 from datetime import datetime
 import constants as CONST
 from helperClasses import Asset
+import logging
+
+logging.basicConfig(filename=f'liqui.log', encoding='utf-8', format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, force=True)
+
+def loglog(msg):
+    logging.info(msg=msg)
 
 def pprint(str):
     print(json.dumps(str, indent=4))
+
+def get_height():
+    res = 0
+    req = "https://nodes.wavesnodes.com/blocks/height"
+    try:
+        resp = requests.get(req).json()
+        if "height" in resp:
+            res = resp["height"]
+        else:
+            loglog("Error fetching height")
+    except Exception as e:
+        loglog("Error fetching height glob")
+    return res
 
 def timestampToDate(tmstp):
     # print(tmstp)

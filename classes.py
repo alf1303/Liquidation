@@ -12,6 +12,9 @@ class Farm():
         self.voted_true = 0
         self.voted_false = 0
         self.quorum = 0
+        self.start = 0
+        self.left_blocks = 0
+        self.left_to_quorum = 0
 
         self.data = []
         self.investors = []
@@ -41,12 +44,31 @@ class Farm():
         
 
 
-    def calc_quorum(self):
+    def calc_quorum(self, height):
         self.quorum = round(self.voted*100/self.all_tokens, 2)
+        self.left_to_quorum = 0.35*self.all_tokens - self.voted
+        if height != 0:
+            self.left_blocks = self.start + 10000 - height
+
+    def blocks_to_time(self, blocks):
+        days = blocks//1440
+        hours = (blocks - days*1440)//60
+        minutes = (blocks - days*1440 - hours*60)
+        res = f"{days}d:{hours}h:{minutes}m ({blocks} blocks))"
+        return res
+
+    def get_left_time(self) -> str:
+        if self.left_blocks == 0:
+            return ":-|"
+        elif self.left_blocks < 0:
+            return "Finished"
+        else:
+            return self.blocks_to_time(self.left_blocks)
+
     
-    def get(self, value):
+    def get(self, value, decimals=4):
         v = value/10**self.decimals
-        return round(v, 4)
+        return round(v, decimals)
 
     def __str__(self):
         quorum = round(self.voted*100/self.all_tokens, 2)
@@ -56,7 +78,10 @@ class Farm():
             status = "😐"
         if quorum <= 20 or self.voted_false < self.voted_true:
             status = "🤢"
-        res = f"*    {self.name:} Farm* {status}\n"
+        if self.voted_true > self.voted_false:
+            status = "🥵"
+        res = f"Left: approx. *{self.get_left_time()}*\n"
+        res += f"*    {self.name:} Farm* {status}\n"
         res += f"Total tokens: {self.get(self.all_tokens)}\n"
         res += f"Staked tokens: {self.get(self.staked_amount)}\n"
         # try:
@@ -67,12 +92,18 @@ class Farm():
         # res += f"Voted: {self.get(self.voted)}, {round(self.voted*100/self.staked_amount, 2)}% of staked\n"
 
         try:
-            res += f"Not Liquidate: {round(self.voted_false*100/self.voted, 2)}%\n"
-            res += f"Liquidate: {round(self.voted_true*100/self.voted, 2)}%\n"
+            res += f"Not Liquidate: *{round(self.voted_false*100/self.voted, 2)}%* ({self.get(self.voted_false, 2)})\n"
+            res += f"Liquidate: *{round(self.voted_true*100/self.voted, 2)}%* ({self.get(self.voted_true, 2)})\n"
         except ZeroDivisionError as e:
             res += "NO VOTES YET\n"
-        res += f"*Quorum: {quorum}%*, ({self.get(self.voted)})"
+        res += f"*Quorum: {quorum}%*{self.need_to_quorum()})"
         return res
+
+    def need_to_quorum(self) -> str:
+        if self.quorum < 35:
+            return f", (need {self.get(self.left_to_quorum, 2)})"
+        else:
+            return ""
 
     def str_top10(self):
         res = ""
