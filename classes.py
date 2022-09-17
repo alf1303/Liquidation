@@ -103,7 +103,7 @@ class Farm():
         if self.quorum < 35:
             return f", (need {self.get(self.left_to_quorum, 2)})"
         else:
-            return ""
+            return f", (over: {self.get(-1*self.left_to_quorum, 2)})"
 
     def str_top10(self):
         res = ""
