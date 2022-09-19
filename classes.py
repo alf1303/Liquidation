@@ -129,4 +129,4 @@ class Investor():
         self.vote = vote
 
     def __str__(self):
-        return f"{self.address} *{self.share}%* (staked: {self.staked}) {self.vote}"
+        return f"{self.address} *{self.share}%* ({round(self.staked/10**8, 2)}) {self.vote}"
