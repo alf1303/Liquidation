@@ -113,6 +113,14 @@ class Farm():
             res += f"{idx + 1}) {str(el)}\n"
         return res
 
+    def str_top20(self):
+        res = ""
+        for idx, el in enumerate(self.investors):
+            if idx == 20:
+                break
+            res += f"{idx + 1}) {str(el)}\n"
+        return res
+
 class Investor():
     def __init__(self, address, staked, share, vote):
         self.address = address

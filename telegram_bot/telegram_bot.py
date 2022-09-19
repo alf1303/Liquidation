@@ -110,6 +110,9 @@ class MyBot:
         top_handler = CommandHandler('top', self.top)
         self.dispatcher.add_handler(top_handler)
 
+        top20_handler = CommandHandler('top20', self.top20)
+        self.dispatcher.add_handler(top20_handler)
+
         text_handler = MessageHandler(filters=Filters.text, callback=self.txt_handler)
         self.dispatcher.add_handler(text_handler)
 
@@ -293,6 +296,20 @@ class MyBot:
             msg = "Your are so awesome:) How to use: top FARM\_NAME"
         self.send_by_id(id=user_id, msg=msg)
 
+    def top20(self, update, context):
+        user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
+        if len(context.args) == 1:
+            res = context.args[0]
+            if res in self.farms:
+                msg = f"{self.farms[res].name}:\n"
+                msg += self.farms[res].str_top20()
+            else:
+                msg = "Your are so awesome :-) But farm name is incorrect"
+        else:
+            msg = "Your are so awesome:) How to use: top FARM\_NAME"
+        self.send_by_id(id=user_id, msg=msg)
                 
         
 
