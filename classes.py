@@ -72,7 +72,11 @@ class Farm():
 
     def __str__(self):
         quorum = round(self.voted*100/self.all_tokens, 2)
-        if quorum > 35 and self.voted_false > self.voted_true:
+        print(quorum)
+        print(self.voted)
+        print(self.voted_false)
+        print(self.voted_true)
+        if quorum >= 35 and self.voted_false > self.voted_true:
             status = "😁"
         if quorum < 35 and quorum > 20:
             status = "😐"
