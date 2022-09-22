@@ -14,12 +14,9 @@ telegram_bot_token = "5780926315:AAFaOTxlqDB_zKAIF7rsdeeFas4EHjx2zCs"
 bot = MyBot(token=telegram_bot_token, default_deposit=15, farms=all_farms_dict)
 bot.send_to_me(msg="BOT STARTED!!!!")
 
-PERIOD = 150 # seconds
+PERIOD = 60 # seconds
 
 last = datetime.now().timestamp()
-
-
-
 
 # def main():
 #     global last
@@ -46,12 +43,14 @@ def main():
             sleep(10)
 
 def process_farms():
+    tt = datetime.now()
     height = get_height()
     for f in all_farms:
         fill_global(f)
         fill_stake_vote(f)
         f.calc_quorum(height=height)
         f.calc_top10()
+    loglog(f"time: {datetime.now() - tt} sec")
     bot.send_to_me("Parsing successful")
 
 
