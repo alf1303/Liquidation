@@ -60,7 +60,7 @@ class Farm():
 
     def get_left_time(self) -> str:
         if self.left_blocks == 0:
-            return ":-|"
+            return "0 blocks"
         elif self.left_blocks < 0:
             return "*VOTING FINISHED*"
         else:
