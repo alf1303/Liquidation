@@ -15,6 +15,7 @@ class Farm():
         self.start = 0
         self.left_blocks = 0
         self.left_to_quorum = 0
+        self.finished = False
 
         self.data = []
         self.investors = []
@@ -61,9 +62,9 @@ class Farm():
         if self.left_blocks == 0:
             return ":-|"
         elif self.left_blocks < 0:
-            return "Finished"
+            return "*VOTING FINISHED*"
         else:
-            return self.blocks_to_time(self.left_blocks)
+            return f"approx. *{self.blocks_to_time(self.left_blocks)}*"
 
     
     def get(self, value, decimals=4):
@@ -84,7 +85,7 @@ class Farm():
             status = "🤢"
         if self.voted_true > self.voted_false:
             status = "🥵"
-        res = f"Left: approx. *{self.get_left_time()}*\n"
+        res = f"Time left: {self.get_left_time()}\n"
         res += f"*    {self.name:} Farm* {status}\n"
         res += f"Total tokens: {self.get(self.all_tokens)}\n"
         res += f"Staked tokens: {self.get(self.staked_amount)}\n"
