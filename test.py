@@ -36,9 +36,9 @@ class Results():
         sign = "+++" if diff >= 0 else "---"
         res += f"*Voting for changing Buyback Ratio for PLUTO Protocol*\n"
         res += f"Status: *{sign} {round(diff/10**8, 4)} PLUTO*\n"
-        res += f"YES votes: *{self.votes_for} ({round(self.voted_for/10**8, 2)} PLUTO, {round(self.voted_for*100/(self.voted_for + self.voted_against), 2)}% of voted)*\n"
-        res += f"NO votes: *{self.votes_against} ({round(self.voted_against/10**8, 2)} PLUTO, {round(self.voted_against*100/(self.voted_for + self.voted_against), 2)}% of voted)*\n"
-        res += f"TOTAL votes: *{self.votes_for + self.votes_against} ({round(self.voted_staked/10**8, 2)} PLUTO, {perc}% of staked)*"
+        res += f"YES votes: *{self.votes_for} ({round(self.voted_for/10**8, 2)} PLUTO, {round(self.voted_for*100/(self.voted_for + self.voted_against), 3)}% of voted)*\n"
+        res += f"NO votes: *{self.votes_against} ({round(self.voted_against/10**8, 2)} PLUTO, {round(self.voted_against*100/(self.voted_for + self.voted_against), 3)}% of voted)*\n"
+        res += f"TOTAL votes: *{self.votes_for + self.votes_against} ({round(self.voted_staked/10**8, 3)} PLUTO, {perc}% of staked)*"
         return res
 
 def upd_results(results):
@@ -54,8 +54,6 @@ def upd_results(results):
         adr = el["key"].split("_")[0]
         val = int(el["value"])
         stakers[adr] = val
-    addr_for = []
-    addr_against = []
     voters = {}
     for el in data:
         if len(el['key']) == 41:
