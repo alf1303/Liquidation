@@ -35,10 +35,10 @@ class Results():
         diff = self.voted_for - self.voted_against
         sign = "+++" if diff >= 0 else "---"
         res += f"*Voting for changing Buyback Ratio for PLUTO Protocol*\n"
-        res += f"Status: *{sign} {round(diff/10**8, 4)} PLUTO*\n"
-        res += f"YES votes: *{self.votes_for} ({round(self.voted_for/10**8, 2)} PLUTO, {round(self.voted_for*100/(self.voted_for + self.voted_against), 3)}% of voted)*\n"
-        res += f"NO votes: *{self.votes_against} ({round(self.voted_against/10**8, 2)} PLUTO, {round(self.voted_against*100/(self.voted_for + self.voted_against), 3)}% of voted)*\n"
-        res += f"TOTAL votes: *{self.votes_for + self.votes_against} ({round(self.voted_staked/10**8, 3)} PLUTO, {perc}% of staked)*"
+        res += f"Status: *{sign} {round(diff/10**8, 4)} sPLUTO*\n"
+        res += f"YES votes: *{self.votes_for} ({round(self.voted_for/10**8, 2)} sPLUTO, {round(self.voted_for*100/(self.voted_for + self.voted_against), 3)}% of voted)*\n"
+        res += f"NO votes: *{self.votes_against} ({round(self.voted_against/10**8, 2)} sPLUTO, {round(self.voted_against*100/(self.voted_for + self.voted_against), 3)}% of voted)*\n"
+        res += f"TOTAL votes: *{self.votes_for + self.votes_against} ({round(self.voted_staked/10**8, 3)} sPLUTO, {perc}% of staked)*"
         return res
 
 def upd_results(results):
