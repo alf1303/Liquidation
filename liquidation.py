@@ -6,15 +6,20 @@ from global_utils import getContractData
 import requests
 
 from telegram_bot.telegram_bot import MyBot
-from utils import get_height, loglog
+from test import Results, upd_results
+from utils import get_contract_data, get_height, loglog
+
+pluto_vote1_contract = "3P3urybcgohip3uYE1hWF89gBPDKM3zLoMB"
 
 # # # https://t.me/TestDuckHuntAssistBot
-# telegram_bot_token = "5780926315:AAFaOTxlqDB_zKAIF7rsdeeFas4EHjx2zCs"
-telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs" # test
-bot = MyBot(token=telegram_bot_token, default_deposit=15, farms=all_farms_dict)
+# telegram_bot_token = "5636247410:AAFuQCje4a_LIzs4wocPVSegWlDXsFMQQYA"
+results = Results()
+# telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs" #- test
+telegram_bot_token = "5636247410:AAFuQCje4a_LIzs4wocPVSegWlDXsFMQQYA"
+bot = MyBot(token=telegram_bot_token, default_deposit=15, results=results)
 bot.send_to_me(msg="BOT STARTED!!!!")
 
-PERIOD = 60 # seconds
+PERIOD = 20 # seconds
 
 last = datetime.now().timestamp()
 
@@ -35,7 +40,7 @@ def main():
             if now - last > PERIOD:
                 last = now
                 loglog("processing...")
-                process_farms()
+                process_pluto_vote()
         except Exception as e:
             exc = repr(e)
             print(exc)
@@ -52,6 +57,9 @@ def process_farms():
         f.calc_top10()
     loglog(f"time: {datetime.now() - tt} sec")
     bot.send_to_me("Parsing successful")
+
+def process_pluto_vote():
+    upd_results(results=results)
 
 
 def fill_global(farm):

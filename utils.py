@@ -26,6 +26,35 @@ def get_height():
         loglog("Error fetching height glob")
     return res
 
+def get_contract_data(address, regex):
+    regex_encoded = regex # urllib.parse.urlencode(regex)
+    req_str = f"{CONST.node_url}/addresses/data/{address}?matches={regex_encoded}"
+    # print(req_str)
+    resp = requests.get(req_str)
+    if resp.status_code == 200:
+            data = resp.json()
+            if "error" in data:
+                print(data["message"])
+                raise Exception(f"Error in response for getting puzzle pools balances" + data["message"])
+            else:
+                return data
+    else:
+        raise Exception(f"Failed to get response for getting puzzle pools balances, status_code: " + str(resp.status_code))
+
+def get_contract_data_noreg(address):
+    req_str = f"{CONST.node_url}/addresses/data/{address}"
+    # print(req_str)
+    resp = requests.get(req_str)
+    if resp.status_code == 200:
+            data = resp.json()
+            if "error" in data:
+                print(data["message"])
+                raise Exception(f"Error in response for getting puzzle pools balances" + data["message"])
+            else:
+                return data
+    else:
+        raise Exception(f"Failed to get response for getting puzzle pools balances, status_code: " + str(resp.status_code))
+
 def timestampToDate(tmstp):
     # print(tmstp)
     return datetime.fromtimestamp(tmstp/1000)

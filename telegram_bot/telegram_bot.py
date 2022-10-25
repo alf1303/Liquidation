@@ -17,9 +17,9 @@ class MyBot:
     """"""
     my_id = "681851428" # User ID of bot's Administrator Account
 
-    def __init__(self, token, farms, default_deposit=15):
+    def __init__(self, token, results, default_deposit=15):
         self.bot = telegram.Bot(token=token)
-        self.farms = farms
+        self.results = results
         self.calls = 0
         self.user_manager = UserManager(default_deposit=default_deposit)
         self.updater = Updater(token=token, use_context=True)
@@ -36,82 +36,9 @@ class MyBot:
 
         help_handler = CommandHandler('help', self.help)
         self.dispatcher.add_handler(help_handler)
-
-        # rset_handler = CommandHandler('rset', self.rset)
-        # self.dispatcher.add_handler(rset_handler)
-
-        # refill_handler = CommandHandler('refill', self.refill)
-        # self.dispatcher.add_handler(refill_handler)
-
-        # request_deposit_handler = CommandHandler('requestdepo', self.requestdepo)
-        # self.dispatcher.add_handler(request_deposit_handler)
-
-        allfarms_handler = CommandHandler('allfarms', self.allfarms)
-        self.dispatcher.add_handler(allfarms_handler)
-
-        turtle_handler = CommandHandler('turtle', self.turtle)
-        self.dispatcher.add_handler(turtle_handler)
-
-        duxplorer_handler = CommandHandler('duxplorer', self.duxplorer)
-        self.dispatcher.add_handler(duxplorer_handler)
-
-        math_handler = CommandHandler('mathematical', self.math)
-        self.dispatcher.add_handler(math_handler)
-
-        eggseggs_handler = CommandHandler('eggseggs', self.eggseggs)
-        self.dispatcher.add_handler(eggseggs_handler)
-
-        latam_handler = CommandHandler('latam', self.latam)
-        self.dispatcher.add_handler(latam_handler)
-
-        fomo_handler = CommandHandler('fomo', self.fomo)
-        self.dispatcher.add_handler(fomo_handler)
-
-        mundo_handler = CommandHandler('mundo', self.mundo)
-        self.dispatcher.add_handler(mundo_handler)
-
-        eggpoint_handler = CommandHandler('eggpoint', self.eggpoint)
-        self.dispatcher.add_handler(eggpoint_handler)
-
-        endoworld_handler = CommandHandler('endoworld', self.endoworld)
-        self.dispatcher.add_handler(endoworld_handler)
-
-        marvinfavis_handler = CommandHandler('marvinfavis', self.marvinfavis)
-        self.dispatcher.add_handler(marvinfavis_handler)
-
-        eggmoon_handler = CommandHandler('eggmoon', self.eggmoon)
-        self.dispatcher.add_handler(eggmoon_handler)
-
-        duckstreet_handler = CommandHandler('duckstreet', self.duckstreet)
-        self.dispatcher.add_handler(duckstreet_handler)
-
-        kolkhoz_handler = CommandHandler('kolkhoz', self.kolkhoz)
-        self.dispatcher.add_handler(kolkhoz_handler)
-
-        forklog_handler = CommandHandler('forklog', self.forklog)
-        self.dispatcher.add_handler(forklog_handler)
-
-        cgu_handler = CommandHandler('cgu', self.cgu)
-        self.dispatcher.add_handler(cgu_handler)
-
-        insiders_handler = CommandHandler('insiders', self.insiders)
-        self.dispatcher.add_handler(insiders_handler)
-
-
-        broadcast_handler = CommandHandler('broadcast', self.broadcast)
-        self.dispatcher.add_handler(broadcast_handler)
-
-        send_to_handler = CommandHandler('sendto', self.sendto)
-        self.dispatcher.add_handler(send_to_handler)
-
-        address_to_handler = CommandHandler('address', self.address)
-        self.dispatcher.add_handler(address_to_handler)
-
-        top_handler = CommandHandler('top', self.top)
-        self.dispatcher.add_handler(top_handler)
-
-        top20_handler = CommandHandler('top20', self.top20)
-        self.dispatcher.add_handler(top20_handler)
+       
+        status_handler = CommandHandler('status', self.status)
+        self.dispatcher.add_handler(status_handler)
 
         text_handler = MessageHandler(filters=Filters.text, callback=self.txt_handler)
         self.dispatcher.add_handler(text_handler)
@@ -147,6 +74,14 @@ class MyBot:
 
     ###########   SPECIAL METHODS   ###############
 
+    def status(self, update, context):
+        user_id = update.message.chat.id
+        name = update.message.chat.username
+        self.add_new_user(user_id, name)
+        msg = str(self.results)
+
+        self.send_by_id(id=user_id, msg=msg)
+
     def allfarms(self, update, context):
         user_id = update.message.chat.id
         name = update.message.chat.username
@@ -164,138 +99,6 @@ class MyBot:
         msg = str(self.farms["turtle"])
         self.send_by_id(id=user_id, msg=msg)
     
-    def duxplorer(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["duxplorer"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def math(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["mathematical"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def eggseggs(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["eggseggs"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def latam(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["latam"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def fomo(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["fomo"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def mundo(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["mundo"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def eggpoint(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["eggpoint"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def endoworld(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["endoworld"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def marvinfavis(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["marvinfavis"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def eggmoon(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["eggmoon"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def duckstreet(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["duckstreet"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def kolkhoz(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["kolkhoz"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def forklog(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["forklog"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def cgu(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["cgu"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def insiders(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        msg = str(self.farms["insiders"])
-        self.send_by_id(id=user_id, msg=msg)
-
-    def check_address(self, address):
-        res = "*Votes:*\n"
-        key = f"VOTE_{address}_"
-        for farm in self.farms.values():
-            for el in farm.data:
-                if key in el["key"]:
-                    if el["value"] == "true":
-                        res += f"-- *{farm.name} Liquidate: YES*\n"
-                    if el["value"] == "false":
-                        res += f"-- *{farm.name} Liquidate: NO*\n"
-        return res
-
-    def top(self, update, context):
-        user_id = update.message.chat.id
-        name = update.message.chat.username
-        self.add_new_user(user_id, name)
-        if len(context.args) == 1:
-            res = context.args[0]
-            if res in self.farms:
-                msg = f"{self.farms[res].name}:\n"
-                msg += self.farms[res].str_top10()
-            else:
-                msg = "Your are so awesome :-) But farm name is incorrect"
-        else:
-            msg = "Your are so awesome:) How to use: top FARM\_NAME"
-        self.send_by_id(id=user_id, msg=msg)
-
     def top20(self, update, context):
         user_id = update.message.chat.id
         name = update.message.chat.username
@@ -485,11 +288,11 @@ class MyBot:
                 self.send_to_me(msg="Invalid Params")
 
     def get_welcome_msg(self):
-        l1 = f"Colllective Farm Liquidation Voting Info. Updated once in 10 minutes\n"
-        main = f"*Paste address to see your votes*\n"
+        l1 = f"PLUTO Voting Info. Updated once in a minute may be\n"
+        # main = f"*Paste address to see your votes*\n"
         # depo = f"/depo - to see your current deposit (attempts)\n"
         # donat = f"Donats are welcome: *3PPKpbjNRzsBicoSSNVP7suvmumrTsZP62J*"
-        msg = f"{l1}{main}"
+        msg = f"{l1}"
         return msg
 
     def help(self, update, context):
