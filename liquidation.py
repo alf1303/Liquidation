@@ -14,8 +14,8 @@ pluto_vote1_contract = "3P3urybcgohip3uYE1hWF89gBPDKM3zLoMB"
 # # # https://t.me/TestDuckHuntAssistBot
 # telegram_bot_token = "5636247410:AAFuQCje4a_LIzs4wocPVSegWlDXsFMQQYA"
 results = Results()
-# telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs" #- test
-telegram_bot_token = "5636247410:AAFuQCje4a_LIzs4wocPVSegWlDXsFMQQYA"
+telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs" #- test
+# telegram_bot_token = "5636247410:AAFuQCje4a_LIzs4wocPVSegWlDXsFMQQYA"
 bot = MyBot(token=telegram_bot_token, default_deposit=15, results=results)
 bot.send_to_me(msg="BOT STARTED!!!!")
 

@@ -1,9 +1,27 @@
 from utils import get_contract_data, get_contract_data_noreg
 
+class Staker():
+    def __init__(self, address, amount):
+        self.address = address
+        self.amount = amount
+        self.ratio = 1.19
+    
+    def __str__(self):
+        return f"{self.address}: {round(self.amount/10**8, 2)}"
+
 pluto_vote1_contract = "3P3urybcgohip3uYE1hWF89gBPDKM3zLoMB"
 pluto_staking = "3P7dGTVZp8VLDYy3XEaUQbiqfi9cMK1Ly5q"
 data = get_contract_data_noreg(address=pluto_vote1_contract)
-data_stake = get_contract_data(address=pluto_staking, regex="3P.*_sPluto||global_sPluto")
+data_stake = get_contract_data(address=pluto_staking, regex="3P.*_sPluto")
+
+stakers = []
+for el in data_stake:
+    adr = el["key"].split("_")[0]
+    amount = int(el["value"])
+    staker = Staker(adr, amount)
+    stakers.append(staker)
+
+print(f"Stakers PLUTO: {len(data_stake)}")
 
 voters_yes = []
 voters_no = []
@@ -30,15 +48,24 @@ for el in data:
             if len(a) == 35 and a.startswith("3P"):
                 batch_no.append(a)
 
-voters_yes.sort()
-voters_no.sort()
-batch_yes.sort()
-batch_no.sort()
+stakers.sort(key=lambda x: x.amount, reverse=True)
+for idx,s in enumerate(stakers):
+    sign = ""
+    if s.address in voters_yes:
+        sign = "+"
+    if s.address in voters_no:
+        sign = "-"
+    print(f"{idx}) {s} {sign}")
 
-print(len(voters_yes), len(batch_yes), len(voters_no), len(batch_no))
+# voters_yes.sort()
+# voters_no.sort()
+# batch_yes.sort()
+# batch_no.sort()
 
-for i in range(31):
-    a = "NONE" if i >= len(voters_yes) else voters_yes[i]
-    b = "NONE" if i >= len(batch_yes) else batch_yes[i]
-    print(a, b)
+# print(len(voters_yes), len(batch_yes), len(voters_no), len(batch_no))
+
+# for i in range(31):
+#     a = "NONE" if i >= len(voters_yes) else voters_yes[i]
+#     b = "NONE" if i >= len(batch_yes) else batch_yes[i]
+#     print(a, b)
 
