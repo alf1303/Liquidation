@@ -35,17 +35,17 @@ last = datetime.now().timestamp()
 def main():
     global last
     while True:
-        try:
-            now = datetime.now().timestamp()
-            if now - last > PERIOD:
-                last = now
-                loglog("processing...")
-                process_pluto_vote()
-        except Exception as e:
-            exc = repr(e)
-            print(exc)
-            bot.send_to_me(exc)
-            sleep(10)
+        # try:
+        now = datetime.now().timestamp()
+        if now - last > PERIOD:
+            last = now
+            loglog("processing...")
+            process_pluto_vote()
+        # except Exception as e:
+            # exc = repr(e)
+            # print(exc)
+            # bot.send_to_me(exc)
+            # sleep(10)
 
 def process_farms():
     tt = datetime.now()
@@ -60,7 +60,6 @@ def process_farms():
 
 def process_pluto_vote():
     upd_results(results=results)
-
 
 def fill_global(farm):
     asset_id = farm.asset_id
@@ -90,5 +89,5 @@ def fill_stake_vote(farm: Farm):
         farm.voted = farm.voted_false + farm.voted_true
     
 if __name__ == "__main__":
-    process_farms()
+    # process_farms()
     main()

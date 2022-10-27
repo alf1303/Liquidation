@@ -78,8 +78,7 @@ class MyBot:
         user_id = update.message.chat.id
         name = update.message.chat.username
         self.add_new_user(user_id, name)
-        msg = str(self.results)
-
+        msg = "+++" + str(self.results)
         self.send_by_id(id=user_id, msg=msg)
 
     def allfarms(self, update, context):
