@@ -4,6 +4,23 @@ from datetime import datetime
 import constants as CONST
 from helperClasses import Asset
 
+def get_contract_data(address, regex=""):
+    regex_encoded = regex # urllib.parse.urlencode(regex)
+    if regex == "":
+        req_str = f"{CONST.node_url}/addresses/data/{address}"
+    else:    
+        req_str = f"{CONST.node_url}/addresses/data/{address}?matches={regex_encoded}"
+    resp = requests.get(req_str)
+    if resp.status_code == 200:
+            data = resp.json()
+            if "error" in data:
+                print(data["message"])
+                raise Exception(f"Error in response for getting puzzle pools balances" + data["message"])
+            else:
+                return data
+    else:
+        raise Exception(f"Failed to get response for getting puzzle pools balances, status_code: " + str(resp.status_code))
+
 def pprint(str):
     print(json.dumps(str, indent=4))
 
