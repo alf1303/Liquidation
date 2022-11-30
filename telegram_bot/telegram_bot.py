@@ -117,6 +117,7 @@ class MyBot:
 
     ############ HANDLERS #########
     # handle /start command. If user exists, send welcome message, else create user
+        # handle /start command. If user exists, send welcome message, else create user
     def start(self, update, context):
         """Handling start of user  communications with bot (/start)
         if new user, create and add entity to USER_MANAGER
@@ -127,9 +128,14 @@ class MyBot:
         if not self.check_id_fake(user_id):
             user = self.user_manager.create_user(user_id, name)
             # loglog(msg=f"User {id} {name} joined")
-            self.send_to_me(msg=f"User {user.id} {user.name} joined")
             msg = self.get_welcome_msg()
             self.send_by_id(id=user_id, msg=msg)
+            if name != None:
+                name = user.name.replace("_", "\_")
+            else:
+                name = "None"
+            self.send_to_me(msg=f"User {user.id} {name} joined")
+
         else:
         # msg = f"Welcome! Your have {user.deposit} attempts. Enter /help to see available options"
             # self.send_to_me(msg=f"User {user.id} {user.name} joined")
@@ -138,12 +144,16 @@ class MyBot:
 
     def add_new_user(self, user_id, name):
         self.calls += 1
-        if not self.check_id_fake(user_id):
-            user = self.user_manager.create_user(user_id, name)
-            # loglog(msg=f"User {id} {name} joined")
-            self.send_to_me(msg=f"User {user.id} {user.name} joined, calls: {self.calls}")
+        user = self.user_manager.create_user(user_id, name)
+        if name != None:
+            name = name.replace("_", "\_")
         else:
-            self.send_to_me(msg=f"User {user_id} {name}, calls: {self.calls}")
+            name = "None"
+        if not self.check_id_fake(user_id):
+            # loglog(msg=f"User {id} {name} joined")
+            self.send_to_me(msg=f"User {user.id} {name} joined, calls: {self.calls}")
+        else:
+            self.send_to_me(msg=f"User {user.id} {name}, calls: {self.calls}")
 
     def txt_handler(self, update, context):
         """Handle direct user input, whithout commands"""
