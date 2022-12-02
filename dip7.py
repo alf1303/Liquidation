@@ -1,6 +1,23 @@
+from utils import get_contract_data, get_duration_from_blocks, get_height
 
-
-from utils import get_contract_data
+farmss = [
+"3PKbd7pfmyaKWt6msaNAXyYUkuaumpea3bb",
+"3P3y8NLGLYDx9obVaBF8je9uPTy2BDaK5n4",
+"3PEVpbeDDkjmKqiMm25MgMZfazR7U1Eivzi",
+"3PDs3ewniAQCp4LfXPMEqb2xRECgtZu2AR5",
+"3PB8FTBTa1JspbXf8GiZTCdhYoq86QC6zxN",
+"3P6gnGQpT9iEABEy5AxMzMbm6ijGHSvXyeb",
+"3PJc5HTXgVWL7CYCec3huKJUtTPwJCNmMDF",
+"3PEv4CE8moSLoAJw5y1bkiRMhtUF1nPRTfx",
+"3P3ohGCRmJzjTsP7RQ7jZV7QNw76wB1Nsnn",
+"3P5me5qyR7z28WDkCiW172coLxpRZvqzeNv",
+"3PJroXdKXF21FmcRjY6z7osZPP8VUY5R5Go",
+"3P6SQ4yDPRSzwk2nQD7ipK3HtxaEBX3M7Jk",
+"3P7iSFkjVr74EQqwExsg7DWRXX2SMn3BA3n",
+"3P3UMGin66fAe39AhJf5whS2Yabu6dZAmCF",
+"3PCMKXu9r2ZNSxuLgnwoPXsWYhq6nMDADNo",
+"3PEaA3SJb6wrfc2D4TPYTZ2xmMsufd7rCFJ"
+]
 
 class Voter():
     def __init__(self, address):
@@ -24,6 +41,9 @@ class Voter():
 class Dip7_Voter():
     def __init__(self):
         self.top_count = 8
+        self.curr_height = 0
+        self.vote_height_start = 0
+        self.vote_duration = 10000
         self.vote_contract = "3P38c43ME7gAtDWoM9NqA6juRMzjF2Uxz3b"
         self.vote_id = "Unknown"
         self.data = {}
@@ -31,10 +51,19 @@ class Dip7_Voter():
         self.for_tops = []
         self.against_tops = []
 
+        # self.info = "Collective Farms removed from calculations"
+        self.time_left = "........"
         self.stats_str = "updating..."
         self.power_tops_str = "updating..."
         self.for_tops_str = "updating..."
         self.against_tops_str = "updating..."
+
+    def set_time_left(self):
+        try:
+            self.curr_height = get_height()
+            self.time_left = get_duration_from_blocks((self.vote_height_start + self.vote_duration) - self.curr_height)
+        except Exception as e:
+            print(f"Error while setting time left: {repr(e)}")
 
     def get_str_info(self):
         voted = 0
@@ -124,13 +153,16 @@ class Dip7_Voter():
         for el in data:
             if el["key"] == "CURRENT_VOTE_IDENTIFIER":
                 self.vote_id = el["value"]
+            if el["key"] == f"VOTE_HEIGHT_START_{self.vote_id}":
+                self.vote_height_start = int(el["value"])
             if "user_"  in el["key"] and "_vote-power" in el["key"]:
                 arr = el["key"].split("_")
                 address = arr[1]
-                power = int(el["value"])
-                voter = self.get_voter(address)
-                voter.set_power(power)
-                self.data[address] = voter
+                if address not in farmss:
+                    power = int(el["value"])
+                    voter = self.get_voter(address)
+                    voter.set_power(power)
+                    self.data[address] = voter
             key = f"_identifier_{self.vote_id}_vote"
             if "user_"  in el["key"] and "_identifier_" in el["key"] and "_vote" in el["key"]:
                 arr = el["key"].split("_")
@@ -145,6 +177,7 @@ class Dip7_Voter():
         self.get_str_info()
         self.get_tops()
         self.make_tops_str()
+        self.set_time_left()
         # print("data filled")
 
 

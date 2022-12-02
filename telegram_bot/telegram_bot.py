@@ -97,7 +97,8 @@ class MyBot:
         user_id = update.message.chat.id
         name = update.message.chat.username
         self.add_new_user(user_id, name)
-        msg = self.voter.stats_str
+        msg = self.voter.time_left + "\n"
+        msg += self.voter.stats_str
         self.send_by_id(id=user_id, msg=msg)
 
     def top(self, update, context):

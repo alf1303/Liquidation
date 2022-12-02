@@ -1,10 +1,6 @@
 from datetime import datetime
 from time import sleep
-from classes import Farm
-from constants import all_farms, all_farms_dict
 from dip7 import Dip7_Voter
-from global_utils import getContractData
-import requests
 import logging
 
 from telegram_bot.telegram_bot import MyBot

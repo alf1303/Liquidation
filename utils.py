@@ -4,6 +4,14 @@ from datetime import datetime
 import constants as CONST
 from helperClasses import Asset
 
+def get_height():
+    try:
+        req_str = f"{CONST.node_url}/blocks/height"
+        resp = requests.get(req_str).json()
+        return resp["height"]
+    except:
+        print(f"Err while getting height")
+
 def get_contract_data(address, regex=""):
     regex_encoded = regex # urllib.parse.urlencode(regex)
     if regex == "":
@@ -20,6 +28,12 @@ def get_contract_data(address, regex=""):
                 return data
     else:
         raise Exception(f"Failed to get response for getting puzzle pools balances, status_code: " + str(resp.status_code))
+
+def get_duration_from_blocks(blocks):
+    days = blocks // 1440
+    hours = (blocks - days * 1440)//60
+    minutes = (blocks - days*1440 - hours * 60)
+    return f"left ~ {days}d {hours}h {minutes}m till end"
 
 def pprint(str):
     print(json.dumps(str, indent=4))
