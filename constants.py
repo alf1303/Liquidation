@@ -42,23 +42,17 @@ forklog_farm = Farm(dApp="3PFdu9Kc2sUzLGjSv4axwr6Fe7dxqoYwkKR", asset_id=forklog
 cgu_farm = Farm(dApp="3PDMQbvFVLyxBnkwzbFEYokEda4EE7ZfdgS", asset_id=cgu, name="CGU")
 insiders_farm = Farm(dApp="3PB6dcUYwDt6WHq6sma4ed7iUvEKvuP4b6B", asset_id=insiders, name="Insiders")
 
-all_farms = [turtle_farm, dux_farm, math_farm, eggs_farm, latam_farm, fomo_farm, mundo_farm, eggpoint_farm, endo_farm, marvin_farm, eggmoon_farm, street_farm, kolkhoz_farm, forklog_farm, cgu_farm, insiders_farm]
+all_farms = [turtle_farm, dux_farm, latam_farm, fomo_farm, mundo_farm, eggpoint_farm, marvin_farm, eggmoon_farm, street_farm, kolkhoz_farm]
 
 all_farms_dict = {
-    "turtle": turtle_farm, 
-    "duxplorer": dux_farm, 
-    "mathematical": math_farm, 
-    "eggseggs": eggs_farm, 
-    "latam": latam_farm, 
-    "fomo": fomo_farm, 
-    "mundo": mundo_farm, 
-    "eggpoint": eggpoint_farm, 
-    "endoworld": endo_farm, 
-    "marvinfavis": marvin_farm, 
-    "eggmoon": eggmoon_farm, 
-    "duckstreet": street_farm, 
-    "kolkhoz": kolkhoz_farm,
-    "forklog": forklog_farm, 
-    "cgu": cgu_farm, 
-    "insiders": insiders_farm
+    "turtle": turtle_farm, #
+    "duxplorer": dux_farm, #
+    "latam": latam_farm, # 
+    "fomo": fomo_farm, #
+    "mundo": mundo_farm, #
+    "eggpoint": eggpoint_farm, #
+    "marvinfavis": marvin_farm, #
+    "eggmoon": eggmoon_farm, #
+    "duckstreet": street_farm, #
+    "kolkhoz": kolkhoz_farm, # 
     }

@@ -2,7 +2,7 @@ from datetime import datetime
 from time import sleep
 from classes import Farm
 from constants import all_farms, all_farms_dict
-from global_utils import getContractData
+from global_utils import getContractData, getContractDataByKey
 import requests
 
 from telegram_bot.telegram_bot import MyBot
@@ -10,6 +10,8 @@ from utils import get_height, loglog
 
 # # # https://t.me/TestDuckHuntAssistBot
 telegram_bot_token = "5780926315:AAFaOTxlqDB_zKAIF7rsdeeFas4EHjx2zCs"
+# telegram_bot_token = "6608525107:AAEFaSRklacU4spArInCbMIi8vONyrXiBPA" # TEST
+
 # telegram_bot_token = "5511483842:AAH1UxdJSoOxJqs_4WwffgKaSgb9ptgriRs" # test
 bot = MyBot(token=telegram_bot_token, default_deposit=15, farms=all_farms_dict)
 bot.send_to_me(msg="BOT STARTED!!!!")
@@ -67,9 +69,11 @@ def fill_stake_vote(farm: Farm):
     data = getContractData(farm.dApp)
     farm.data = data
     start_key = "VOTE_HEIGHT_START"
+    start_height_js = getContractDataByKey(farm.dApp, start_key)
+    start_height = start_height_js[0]["value"]
     staked_key = "global_staked"
-    vote_false_key = "VOTE_TOTAL_false"
-    vote_true_key = "VOTE_TOTAL_true"
+    vote_false_key = f"VOTE_TOTAL_false_{start_height}"
+    vote_true_key = f"VOTE_TOTAL_true_{start_height}"
     for el in data:
         if el["key"] == staked_key:
             farm.staked_amount = el["value"]
