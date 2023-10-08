@@ -31,7 +31,7 @@ class Farm():
                 inv = Investor(address=addr, staked=staked, share=share, vote="")
                 self.investors.append(inv)
         for inv in self.investors:
-            vote_key = f"VOTE_{inv.address}"
+            vote_key = f"VOTE_{inv.address}_{self.start}"
             for el2 in self.data:
                 if vote_key in el2["key"]:
                     if el2["value"] == "true":
