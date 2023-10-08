@@ -275,10 +275,11 @@ class MyBot:
         for farm in self.farms.values():
             for el in farm.data:
                 if key in el["key"]:
+                    v, a, h = el["key"].split("_") 
                     if el["value"] == "true":
-                        res += f"-- *{farm.name} Liquidate: YES*\n"
+                        res += f"-- (h={h}) *{farm.name} Liquidate: YES*\n"
                     if el["value"] == "false":
-                        res += f"-- *{farm.name} Liquidate: NO*\n"
+                        res += f"-- (h={h}) *{farm.name} Liquidate: NO*\n"
         return res
 
     def top(self, update, context):
