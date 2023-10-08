@@ -5,7 +5,7 @@ import constants as CONST
 from helperClasses import Asset
 import logging
 
-logging.basicConfig(filename=f'liqui.log', encoding='utf-8', format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, force=True)
+logging.basicConfig(filename=f'liqui.log', format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO, force=True)
 
 def loglog(msg):
     logging.info(msg=msg)
